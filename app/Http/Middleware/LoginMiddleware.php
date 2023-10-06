@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginMiddleware
@@ -15,7 +17,15 @@ class LoginMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
+        $user = User::where('token', $request->bearerToken())->first();
+
+        if(!$user) {
+            return response()->json([
+                'message' => 'Invalid token'
+            ], 401);
+        }
+
+        Auth::login($user);
 
         return $next($request);
     }
