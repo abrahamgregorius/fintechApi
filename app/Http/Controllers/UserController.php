@@ -37,7 +37,21 @@ class UserController extends Controller
 
     }   
 
-    public function logout() {
+    public function logout(Request $request) {
+        $user = User::where('token', $request->bearerToken())->first();
 
+        if(!$user) {
+            return response()->json([
+                'message' => 'Invalid token'
+            ], 401);
+        }
+
+        $user->update([
+            'token' => null
+        ]);
+
+        return response()->json([
+            'message' => 'Logout success'
+        ]);
     }
 }
