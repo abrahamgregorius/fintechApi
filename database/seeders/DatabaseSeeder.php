@@ -18,12 +18,27 @@ class DatabaseSeeder extends Seeder
         User::insert([
             [
                 'username' => 'admin',
-                'password' => 'admin123',
+                'password' => Hash::make('admin123'),
                 'role' => 'admin'
             ],
             [
                 'username' => 'student',
-                'password' => 'student123',
+                'password' => Hash::make('student123'),
+                'role' => 'student'
+            ],
+            [
+                'username' => 'bank',
+                'password' => Hash::make('bank123'),
+                'role' => 'bank'
+            ],
+            [
+                'username' => 'shop',
+                'password' => Hash::make('shop123'),
+                'role' => 'shop'
+            ],
+            [
+                'username' => 'userone',
+                'password' => Hash::make('userone123'),
                 'role' => 'student'
             ],
         ]);

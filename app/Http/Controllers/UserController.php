@@ -18,13 +18,11 @@ class UserController extends Controller
         }
 
         $user = User::find(Auth::user()->id);
-        
         $token = uuid_create();
 
         $user->update([
             'token' => $token
         ]);
-
         return response()->json([
             'message' => 'Login success',
             'user' => [
@@ -38,17 +36,14 @@ class UserController extends Controller
 
     public function logout(Request $request) {
         $user = User::where('token', $request->bearerToken())->first();
-
         if(!$user) {
             return response()->json([
                 'message' => 'Invalid token'
             ], 401);
         }
-
         $user->update([
             'token' => null
         ]);
-
         return response()->json([
             'message' => 'Logout success'
         ]);
@@ -86,12 +81,8 @@ class UserController extends Controller
     }
 
     public function update(Request $request) {
-        $user = User::find(Auth::user());
-
-        $user->update([
-            'username' => $request->username,
-            'password' => $request->password,
-        ]);
+        $user = User::find(Auth::user()->id);
+        $user->update($request->only(['username', 'password']));
 
         return response()->json([
             'message' => 'User updated'
