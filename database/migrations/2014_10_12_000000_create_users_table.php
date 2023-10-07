@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
+            $table->float('balance')->default(0);
             $table->enum('role', ['admin', 'bank', 'shop', 'student']);
             $table->string('token')->nullable();
             $table->timestamps();

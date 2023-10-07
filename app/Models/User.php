@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'password',
+        'role',
         'token'
     ];
 
@@ -39,7 +40,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -49,5 +49,9 @@ class User extends Authenticatable
 
     public function balances() {
         return $this->hasOne(Balance::class);
+    }
+
+    public function balance_histories() {
+        return $this->hasMany(BalanceHistory::class);
     }
 }

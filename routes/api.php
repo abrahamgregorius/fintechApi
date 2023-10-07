@@ -24,4 +24,9 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('login')->group(function() {
     Route::post('/logout', [UserController::class, 'logout']);
+
+    Route::middleware('admin')->group(function() {
+        Route::post('/user/create', [UserController::class, 'store']);
+    });
+    
 });
